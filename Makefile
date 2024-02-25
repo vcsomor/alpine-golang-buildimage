@@ -1,6 +1,6 @@
 default: help
 
-IMAGE_NAME   := lacion/alpine-golang-buildimage
+IMAGE_NAME   := vcsomor/alpine-golang-buildimage
 
 .PHONY: help
 help:

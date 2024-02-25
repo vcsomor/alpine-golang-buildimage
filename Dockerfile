@@ -1,11 +1,11 @@
-FROM alpine:3.10.2
+FROM alpine:3.19.1
 
-ARG VERSION=1.13
-ARG CHECKSUM=3fc0b8b6101d42efd7da1da3029c0a13f22079c0c37ef9730209d8ec665bf122
+ARG VERSION=1.27.1
+ARG CHECKSUM=00197ab20f33813832bff62fd93cca1c42a08cc689a32a6672ca49591959bff6
 
 LABEL golang_version="$VERSION"
-LABEL maintainer="luismmorales@gmail.com"
-LABEL repo="https://github.com/lacion/alpine-golang-buildimage"
+LABEL maintainer="dev.vcsomor@gmail.com"
+LABEL repo="https://github.com/vcsomor/alpine-golang-buildimage"
 
 RUN apk add --no-cache --update curl \
     grep \
@@ -40,7 +40,7 @@ RUN set -eux; \
 		x86) export GO386='387' ;; \
 	esac; \
 	\
-	wget -O go.tgz "https://golang.org/dl/go$VERSION.src.tar.gz"; \
+	wget -O go.tgz "https://go.dev/dl/go${VERSION}.src.tar.gz"; \
 	echo "$CHECKSUM *go.tgz" | sha256sum -c -; \
 	tar -C /usr/local -xzf go.tgz; \
 	rm go.tgz; \
@@ -57,5 +57,4 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
-RUN go get -u github.com/golang/dep/cmd/dep
 WORKDIR $GOPATH
